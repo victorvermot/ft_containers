@@ -1,21 +1,40 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
+# include "ReverseIterator.hpp"
+# include "RaIterator.hpp"
 # include <iostream>
 
 namespace ft {
-	template <typename T>
+	template <typename T, typename Alloc = std::allocator<T> >
 	class Vector {
+
+	private:
+		typedef T 			value_type;
+		typedef Alloc 		allocator_type;
+		typedef typename 	allocator_type::reference reference;
+		typedef typename 	allocator_type::const_reference const_reference;
+		typedef typename 	allocator_type::pointer pointer;
+		typedef typename 	allocator_type::const_pointer const_pointer;
+		typedef	size_t		size_type;
+		value_type 			*_vector;
+		allocator_type 		_alloc;
+		size_type 			_size;
+
 	public:
-		Vector<T>(){
+		typedef RaIterator<value_type> iterator;
+		typedef RaIterator<const value_type> const_iterator;
+		typedef ReverseIterator<iterator> reverse_iterator;
+		typedef ReverseIterator<const_iterator> const_reverse_iterator;
+		Vector<T, Alloc>() : _size(0) {
 			_vector = _alloc.allocate(0);
-			return ;
 		}
-		Vector<T>(size_t size) : _size(size) {
+		Vector<T, Alloc>(size_t size, const value_type& val) : _size(size) {
 			_vector = _alloc.allocate(_size);
-			return ;
+			for (size_t i = 0; i < size; i++)
+				_vector[i] = val;
 		}
-		Vector<T>(const Vector& other) {
+		Vector<T, Alloc>(const Vector& other) {
 			*this = other;
 		}
 		Vector& operator=(const Vector& rhs) {
@@ -29,17 +48,18 @@ namespace ft {
 			}
 			return (*this);
 		}
-		~Vector<T>(){
+		value_type& operator[](size_type index)
+		{
+			return (_vector[index]);
+		}
+		~Vector<T, Alloc>() {
 			_alloc.deallocate(_vector, _size);
-			return ;
 		}
 
 		size_t	size() { return (_size); }
+		iterator begin() { return (iterator(_vector[0])); }
+		iterator end() { return (iterator(_vector[_size - 1])); }
 
-	private:
-		size_t				_size;
-		T					*_vector;
-		std::allocator<T>	_alloc;
 	};
 }
 

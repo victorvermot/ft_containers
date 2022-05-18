@@ -1,10 +1,10 @@
 SRCS			= ./src/main.cpp
 OBJS			= ${SRCS:.cpp=.o}
-NAME            = templates
-CC				= c++ -g
+NAME            = containers
+CC				= c++-11 -g
 RM              = rm -f
 
-CFLAGS          = -Wall -Wextra -Werror -std=c++98 -pedantic -g -fsanitize=address
+CFLAGS          = -Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
 
 .cpp.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.cpp=.o} ${HEADS}
