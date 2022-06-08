@@ -11,6 +11,9 @@ CFLAGS          = -Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
 
 all:		${NAME}
 
+test:
+			c++ -g src/test.cpp -o test
+
 ${NAME}:	${OBJS}
 			${CC} ${CFLAGS} -o ${NAME} ${OBJS}
 			./${NAME}

@@ -5,14 +5,14 @@
 # include "Iterator.hpp"
 
 template <typename T>
-class RaIterator : public iterator<> {
+class RaIterator {
 
 private:
 	T *_ptr;
 
 public:
 	RaIterator<T>() : _ptr(NULL) { return ; }
-	RaIterator<T>(T &value) : _ptr(&value) { return ; }
+	explicit RaIterator<T>(T &value) : _ptr(&value) { return ; }
 	RaIterator<T>(const RaIterator& other) {
 		*this = other;
 	}
@@ -85,8 +85,8 @@ public:
 	friend bool operator<=(const RaIterator& a, const RaIterator& b) { return a._ptr <= b._ptr; }
 	friend bool operator<(const RaIterator& a, const RaIterator& b) { return a._ptr < b._ptr; }
 	friend bool operator>(const RaIterator& a, const RaIterator& b) { return a._ptr > b._ptr; }
-	friend bool operator==(const RaIterator& a, const RaIterator& b) { return a.m_ptr == b.m_ptr; }
-	friend bool operator!=(const RaIterator& a, const RaIterator& b) { return a.m_ptr != b.m_ptr; }
+	friend bool operator==(const RaIterator& a, const RaIterator& b) { return a._ptr == b._ptr; }
+	friend bool operator!=(const RaIterator& a, const RaIterator& b) { return a._ptr != b._ptr; }
 	~RaIterator<T>() {};
 };
 

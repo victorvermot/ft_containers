@@ -1,7 +1,7 @@
 #ifndef ITERATOR_H
 # define ITERATOR_H
 
-template <class Category, class T, class Distance = ptrdiff_t,
+template <class Category, class T, class Distance = std::ptrdiff_t,
 		class Pointer = T*, class Reference = T&>
 struct iterator {
 	typedef T         value_type;
