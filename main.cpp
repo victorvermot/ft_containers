@@ -1,9 +1,9 @@
-#include "../inc/Vector.hpp"
+#include "./inc/Vector.hpp"
 #include <vector>
 
 int main()
 {
-	ft::vector<int> ori(12, 2);
+	ft::vector<int> ori(1, 2);
 	std::vector<int> ori3(5, 6);
 //	ft::vector<int>::iterator it = ori.begin();
 //	ft::vector<int>::iterator it2 = ori.begin() + 3;
@@ -18,7 +18,7 @@ int main()
 //	ori.erase(ori.begin(), ori.begin() + 6);
 	std::cout << "size: " << ori.size() << std::endl;
 	ori.push_back(5);
-	ori.at(500);
+//	ori.at(500);
 	ori.insert(ori.begin() + 1, 20, 12);
 	std::cout << "capacity: " << ori.capacity() << std::endl;
 	for (ft::vector<int>::iterator it = ori.begin(); it != ori.end(); it++) {

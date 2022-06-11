@@ -9,7 +9,6 @@ class RaIterator {
 
 private:
 	T *_ptr;
-
 public:
 	RaIterator<T>() : _ptr(NULL) { return ; }
 	explicit RaIterator<T>(T &value) : _ptr(&value) { return ; }
@@ -70,9 +69,16 @@ public:
 		return (temp);
 	}
 
-	friend RaIterator& operator-(RaIterator& lhs, const RaIterator& rhs) {
-		lhs -= rhs;
-		return (lhs);
+	friend std::ptrdiff_t operator-(RaIterator& lhs, const RaIterator& rhs) {
+		return (lhs._ptr - rhs._ptr);
+	}
+
+	friend std::ptrdiff_t operator+(const RaIterator& lhs, const RaIterator& rhs) {
+		return (lhs._ptr + rhs._ptr);
+	}
+
+	friend std::ptrdiff_t operator+(RaIterator& lhs, RaIterator& rhs) {
+		return (lhs._ptr + rhs._ptr);
 	}
 
 	friend RaIterator operator+(int lhs, RaIterator rhs) {
