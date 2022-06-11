@@ -134,7 +134,7 @@ namespace ft {
 		iterator end() { return (iterator(this->back())); }
 //		typename enable_if<!is_integral<InputIterator>::value>::type
 		template <class InputIterator>
-		void assign (InputIterator first, InputIterator last) {
+		void assign (typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
 			if (static_cast<long unsigned int>(last - first) > _capacity) {
 				this->reserve(last - first);
 			}
@@ -162,21 +162,7 @@ namespace ft {
 			_size++;
 		}
 		void swap (vector& x) {
-//			vector& tmp = *this;
-//			*this = x;
-//			x = tmp;
-//			iterator it2 = x.begin();
 			std::swap(this->_vector, x._vector);
-//			  std::uninitialized_fill_n(_vector, n, val);
-//			std::uninitialized_copy(this->begin(), this->end(), x._vector);
-//			std::uninitialized_copy(this->begin(), this->end(), x._vector);
-//			std::uninitialized_copy(this->begin(), this->end(), this->_vector);
-//			for (iterator it = this->begin(); it != this->end(); it++) {
-//				T temp = *it;
-//				*it = *it2;
-//				*it2 = temp;
-//				it2++;
-//			}
 		}
 		void pop_back() {
 			_alloc.destroy(&this->back());
@@ -203,19 +189,28 @@ namespace ft {
 				_capacity = _size + n;
 				this->reserve(_capacity);
 			}
-//			value_type *new_vector = _alloc.allocate(_capacity);
 			value_type *temp = _alloc.allocate(_capacity);
-//			new_vector
-//			int j = 0;
-//			std::uninitialized_copy<ft::vector<value_type>, value_type* >(this->begin(), position, temp);
 			std::uninitialized_copy(this->begin(), position, temp);
-//			std::uninitialized_copy<ft::vector<value_type>, value_type* >(position, position + n, temp + position);
 			std::uninitialized_fill_n(temp + (position - this->begin()), n, val);
 			std::uninitialized_copy(position, position + n, temp + (position - this->begin() + n));
-//			std::cout << "El famoso: "<< temp + (position - this->begin() + n) << std::endl;
 			_alloc.deallocate(_vector, _capacity);
 			_vector = temp;
 			_size += n;
+		}
+		template <class InputIterator>
+		void insert (iterator position, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
+			size_type diff = last - first;
+			if (_size + diff > _capacity) {
+				_capacity = _size + diff;
+//				this->reserve(_capacity);
+			}
+			value_type *temp = _alloc.allocate(_capacity);
+			std::uninitialized_copy(this->begin(), position, temp);
+			std::uninitialized_copy(first, last, temp + (position - this->begin()));
+			std::uninitialized_copy(position, position + diff, temp + (position - this->begin() + diff));
+			_alloc.deallocate(_vector, _capacity);
+			_vector = temp;
+			_size += diff;
 		}
 		iterator erase (iterator position) {
 			for (iterator it = position; it != this->end() - 1; it++) {
@@ -232,12 +227,11 @@ namespace ft {
 			_size -= diff;
 			return (first);
 		}
-//		template <class InputIterator>
-//		void insert (iterator position, InputIterator first, InputIterator last) {
-//
-//		}
+
 		void clear() {
-			_alloc.destroy(_vector);
+			for (size_type i = 0; i < _size; i++) {
+				_alloc.destroy(_vector + i);
+			}
 			_size = 0;
 		}
 
@@ -248,13 +242,7 @@ namespace ft {
 		friend bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs < rhs ); }
 		friend bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs <= rhs ); }
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
-			iterator it2 = y.begin();
-			for (iterator it = x.begin(); it != x.end(); it++) {
-				T temp = *it;
-				*it = y;
-				*it2 = temp;
-				it2++;
-			}
+			std::swap(x._vector, y._vector);
 		}
 
 		// ALlocators

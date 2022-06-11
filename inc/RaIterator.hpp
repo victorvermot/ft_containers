@@ -10,6 +10,16 @@ class RaIterator {
 private:
 	T *_ptr;
 public:
+	typedef T value_type;
+	typedef T& reference;
+	typedef T* pointer;
+	typedef std::random_access_iterator_tag iterator_category;
+	typedef std::ptrdiff_t difference_type;
+//	typedef typename T::iterator_category iterator_category;
+//	typedef typename T::value_type        value_type;
+//	typedef typename T::difference_type   difference_type;
+//	typedef typename T::pointer           pointer;
+//	typedef typename T::reference         reference;
 	RaIterator<T>() : _ptr(NULL) { return ; }
 	explicit RaIterator<T>(T &value) : _ptr(&value) { return ; }
 	RaIterator<T>(const RaIterator& other) {
