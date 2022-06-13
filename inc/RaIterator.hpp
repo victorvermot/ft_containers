@@ -4,29 +4,24 @@
 # include <iostream>
 # include "Iterator.hpp"
 
+namespace ft {
+	class random_access_iterator_tag {};
+}
+
 template <typename T>
-class RaIterator {
+class random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
 
 private:
 	T *_ptr;
 public:
-	typedef T value_type;
-	typedef T& reference;
-	typedef T* pointer;
-	typedef std::random_access_iterator_tag iterator_category;
-	typedef std::ptrdiff_t difference_type;
-//	typedef typename T::iterator_category iterator_category;
-//	typedef typename T::value_type        value_type;
-//	typedef typename T::difference_type   difference_type;
-//	typedef typename T::pointer           pointer;
-//	typedef typename T::reference         reference;
-	RaIterator<T>() : _ptr(NULL) { return ; }
-	explicit RaIterator<T>(T &value) : _ptr(&value) { return ; }
-	RaIterator<T>(const RaIterator& other) {
+
+	random_access_iterator<T>() : _ptr(NULL) { return ; }
+	explicit random_access_iterator<T>(T &value) : _ptr(&value) { return ; }
+	random_access_iterator<T>(const random_access_iterator& other) {
 		*this = other;
 	}
 
-	RaIterator& operator=(const RaIterator& rhs) {
+	random_access_iterator& operator=(const random_access_iterator& rhs) {
 		this->_ptr = rhs._ptr;
 		return (*this);
 	}
@@ -35,75 +30,79 @@ public:
 	T* operator->() const { return _ptr; }
 	T& operator[](int index) { return _ptr[index]; }
 
-	RaIterator& operator++() {
+	random_access_iterator& operator++() {
 		_ptr++;
 		return (*this);
 	}
 
-	RaIterator operator++(int) {
-		RaIterator temp = *this;
+	random_access_iterator operator++(int) {
+		random_access_iterator temp = *this;
 		++(*this);
 		return (temp);
 	}
 
-	RaIterator& operator--() {
+	random_access_iterator& operator--() {
 		_ptr--;
 		return (*this);
 	}
 
-	RaIterator operator--(int) {
-		RaIterator temp = *this;
+	random_access_iterator operator--(int) {
+		random_access_iterator temp = *this;
 		--(*this);
 		return (temp);
 	}
 
-	RaIterator& operator+=(int n) {
+	random_access_iterator& operator+=(int n) {
 		this->_ptr += n;
 		return (*this);
 	}
 
-	RaIterator& operator-=(unsigned int n) {
+	random_access_iterator& operator-=(unsigned int n) {
 		this->_ptr -= n;
 		return (*this);
 	}
 
-	RaIterator operator+(unsigned int n) {
-		RaIterator temp = *this;
+	random_access_iterator operator+(unsigned int n) {
+		random_access_iterator temp = *this;
 		temp += n;
 		return (temp);
 	}
 
-	RaIterator operator-(unsigned int n) {
-		RaIterator temp = *this;
+	random_access_iterator operator-(unsigned int n) {
+		random_access_iterator temp = *this;
 		temp -= n;
 		return (temp);
 	}
 
-	friend std::ptrdiff_t operator-(RaIterator& lhs, const RaIterator& rhs) {
+	friend std::ptrdiff_t operator-(random_access_iterator& lhs, const random_access_iterator& rhs) {
 		return (lhs._ptr - rhs._ptr);
 	}
 
-	friend std::ptrdiff_t operator+(const RaIterator& lhs, const RaIterator& rhs) {
+	friend std::ptrdiff_t operator-(const random_access_iterator& lhs, const random_access_iterator& rhs) {
+		return (lhs._ptr - rhs._ptr);
+	}
+
+	friend std::ptrdiff_t operator+(const random_access_iterator& lhs, const random_access_iterator& rhs) {
 		return (lhs._ptr + rhs._ptr);
 	}
 
-	friend std::ptrdiff_t operator+(RaIterator& lhs, RaIterator& rhs) {
+	friend std::ptrdiff_t operator+(random_access_iterator& lhs, random_access_iterator& rhs) {
 		return (lhs._ptr + rhs._ptr);
 	}
 
-	friend RaIterator operator+(int lhs, RaIterator rhs) {
-		RaIterator temp = rhs;
+	friend random_access_iterator operator+(int lhs, random_access_iterator rhs) {
+		random_access_iterator temp = rhs;
 		temp += lhs;
 		return (temp);
 	}
 
-	friend bool operator>=(const RaIterator& a, const RaIterator& b) { return a._ptr >= b._ptr; }
-	friend bool operator<=(const RaIterator& a, const RaIterator& b) { return a._ptr <= b._ptr; }
-	friend bool operator<(const RaIterator& a, const RaIterator& b) { return a._ptr < b._ptr; }
-	friend bool operator>(const RaIterator& a, const RaIterator& b) { return a._ptr > b._ptr; }
-	friend bool operator==(const RaIterator& a, const RaIterator& b) { return a._ptr == b._ptr; }
-	friend bool operator!=(const RaIterator& a, const RaIterator& b) { return a._ptr != b._ptr; }
-	~RaIterator<T>() {};
+	friend bool operator>=(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr >= b._ptr; }
+	friend bool operator<=(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr <= b._ptr; }
+	friend bool operator<(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr < b._ptr; }
+	friend bool operator>(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr > b._ptr; }
+	friend bool operator==(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr == b._ptr; }
+	friend bool operator!=(const random_access_iterator& a, const random_access_iterator& b) { return a._ptr != b._ptr; }
+	~random_access_iterator<T>() {};
 };
 
 #endif
