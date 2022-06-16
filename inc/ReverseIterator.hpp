@@ -2,9 +2,10 @@
 # define REVERSE_ITERATOR_H
 
 # include "Iterator.hpp"
+# include "RaIterator.hpp"
 
 template <typename Iterator>
-class reverse_iterator  : public ft::iterator<> {
+class reverse_iterator  : public ft::iterator<ft::random_access_iterator_tag, typename Iterator::value_type> {
 
 private:
 //	T *_ptr;
