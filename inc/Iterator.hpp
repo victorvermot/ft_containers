@@ -4,14 +4,13 @@
 #include "iostream"
 
 namespace ft {
-	template <class Category, class T, class Distance = std::ptrdiff_t,
-			class Pointer = T*, class Reference = T&>
+	template <class Category, typename T>
 	class iterator {
-	protected:
+	public:
 		typedef T         value_type;
-		typedef Distance  difference_type;
-		typedef Pointer   pointer;
-		typedef Reference reference;
+		typedef std::ptrdiff_t difference_type;
+		typedef T*   	pointer;
+		typedef T& 		reference;
 		typedef Category  iterator_category;
 	};
 }

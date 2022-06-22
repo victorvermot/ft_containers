@@ -20,10 +20,10 @@ namespace ft {
 		typedef typename 	allocator_type::pointer pointer;
 		typedef typename 	allocator_type::const_pointer const_pointer;
 		typedef	size_t		size_type;
-		typedef random_access_iterator<value_type> 			iterator;
-		typedef random_access_iterator<const value_type>	const_iterator;
-		typedef reverse_iterator<iterator> 					reverse_iterator;
-		typedef reverse_iterator<const_iterator> 			const_reverse_iterator;
+		typedef ft::random_access_iterator<value_type> 			iterator;
+		typedef ft::random_access_iterator<const value_type>	const_iterator;
+		typedef reverse_iterator<iterator> 						reverse_iterator;
+//		typedef reverse_iterator<const_iterator> 			const_reverse_iterator;
 
 	private:
 		// private members
@@ -34,7 +34,7 @@ namespace ft {
 
 	public:
 		// Constructors and destructor
-		explicit vector<T, Alloc>() : _size(0), _capacity(0) {
+		explicit vector() : _size(0), _capacity(0) {
 			_vector = _alloc.allocate(_capacity);
 		}
 		explicit vector<T, Alloc>(size_t size, const value_type& val = value_type(),
@@ -45,15 +45,15 @@ namespace ft {
 			}
 		}
 		template <class InputIterator>
-		vector (typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+		vector(typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
 				const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
-			size_type diff = last - first;
+			std::ptrdiff_t diff = last - first;
 			_size = diff;
 			_capacity = diff;
 			_vector = _alloc.allocate(_capacity);
 			std::uninitialized_copy(first, last, _vector);
 		}
-		vector<T, Alloc>(const vector& other) {
+		vector(const vector& other) {
 			*this = other;
 		}
 		~vector<T, Alloc>() {
@@ -138,11 +138,12 @@ namespace ft {
 		const_reference back() const { return (_vector[_size - 1]); }
 
 		// Iterator
-		iterator begin() { return (iterator(this->front())); }
-		const_iterator begin() const { return (const_iterator(this->front())); }
-		iterator end() { return (iterator(_vector[_size])); }
-		const_iterator end() const { return (const_iterator(_vector[_size])); }
-//		typename enable_if<!is_integral<InputIterator>::value>::type
+		iterator begin() { return (iterator(_vector)); }
+		const_iterator begin() const { return (const_iterator(_vector)); }
+		iterator end() { return (iterator(_vector + _size)); }
+		const_iterator end() const { return (const_iterator(_vector + _size)); }
+
+		// Function members modifiers
 		template <class InputIterator>
 		void assign (typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
 			if (static_cast<long unsigned int>(last - first) > _capacity) {
@@ -153,7 +154,7 @@ namespace ft {
 				_alloc.construct(_vector + i, *it);
 				i++;
 			}
-			_size = last - first;
+			_size = static_cast<size_type>(last - first);
 		}
 		void assign(size_type n, const value_type& val) {
 			if (n > _capacity) {
@@ -162,7 +163,6 @@ namespace ft {
 			std::uninitialized_fill_n(_vector, n, val);
 			_size = n;
 		}
-		// Modifiers
 		void push_back(const value_type& val) {
 			if (_size + 1 > _capacity) {
 				_capacity *= 2;
@@ -209,10 +209,9 @@ namespace ft {
 		}
 		template <class InputIterator>
 		void insert (iterator position, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
-			size_type diff = last - first;
+			std::ptrdiff_t diff = last - first;
 			if (_size + diff > _capacity) {
 				_capacity = _size + diff;
-//				this->reserve(_capacity);
 			}
 			value_type *temp = _alloc.allocate(_capacity);
 			std::uninitialized_copy(this->begin(), position, temp);
@@ -222,6 +221,7 @@ namespace ft {
 			_vector = temp;
 			_size += diff;
 		}
+
 		iterator erase(iterator position) {
 			for (iterator it = position; it != this->end() - 1; it++) {
 				*it = *(it + 1);
@@ -229,6 +229,7 @@ namespace ft {
 			_size--;
 			return (position);
 		}
+
 		iterator erase(iterator first, iterator last) {
 			size_type diff = last - first;
 			for (iterator it = first; it != last; it++) {

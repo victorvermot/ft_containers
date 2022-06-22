@@ -13,42 +13,29 @@ public:
 
 	pair();
 
-	template<class U, class V>
-	pair (const pair<U, V>& pr) { *this = other; }
+	pair (const pair& other) { *this = other; }
 
 	pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
-	template <class T1, class T2>
-	bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	friend bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return lhs.first==rhs.first && lhs.second==rhs.second; }
 
-	template <class T1, class T2>
-	bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return !(lhs==rhs); }
+	friend bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	{ return lhs != rhs; }
 
-	template <class T1, class T2>
-	bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second<rhs.second); }
+	friend bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	{ return lhs.first < rhs.first || (rhs.first >= lhs.first && lhs.second < rhs.second); }
 
-	template <class T1, class T2>
-	bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	friend bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return !(rhs<lhs); }
 
-	template <class T1, class T2>
-	bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	friend bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return rhs<lhs; }
 
-	template <class T1, class T2>
-	bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+	friend bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return !(lhs<rhs); }
 
-	template <class T1,class T2>
-	pair<T1,T2> make_pair(T1 x, T2 y)
-	{
-		return (pair<T1,T2>(x,y));
-	}
-
-	pair &operator=(const Pair &rhs) {
+	pair &operator=(const pair &rhs) {
 		this->first = rhs.first;
 		this->second = rhs.second;
 		return (*this);
@@ -56,5 +43,10 @@ public:
 	~pair();
 };
 
+template <class T1,class T2>
+pair<T1,T2> make_pair(T1 x, T2 y)
+{
+	return (pair<T1,T2>(x,y));
+}
 
 #endif

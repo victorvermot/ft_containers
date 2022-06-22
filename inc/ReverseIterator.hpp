@@ -3,35 +3,106 @@
 
 # include "Iterator.hpp"
 # include "RaIterator.hpp"
+# include "IteratorTraits.hpp"
 
 template <typename Iterator>
 class reverse_iterator  : public ft::iterator<ft::random_access_iterator_tag, typename Iterator::value_type> {
 
+public:
+	typedef Iterator iterator_type;
+	typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
+	typedef typename iterator_traits<Iterator>::value_type value_type;
+	typedef typename iterator_traits<Iterator>::difference_type difference_type;
+	typedef typename iterator_traits<Iterator>::pointer pointer;
+	typedef typename iterator_traits<Iterator>::reference reference;
+
 private:
-//	T *_ptr;
-//	typedef T value_type;
-//	typedef T& reference;
-//	typedef T* pointer;
-//	typedef std::random_access_iterator_tag iterator_category;
-//	typedef std::ptrdiff_t difference_type;
+
+	Iterator current;
 
 public:
-//	reverse_iterator<iterator_type>() {};
-//	reverse_iterator<iterator_type>(T *ptr) : _ptr(ptr) { return ; }
-//	T& operator*() const { return *_ptr; }
-//	T* operator->() const { return _ptr; }
-	reverse_iterator& operator++() {
-//		_ptr++;
+
+	// Constructors
+	reverse_iterator() : current() {};
+	explicit reverse_iterator (iterator_type it) { current = it; }
+	template <class Iter>
+	explicit reverse_iterator (const reverse_iterator<Iter>& rev_it) {
+		this->current = rev_it._base();
 		return (*this);
 	}
-	reverse_iterator& operator++(int) {
+
+	// Member function
+	iterator_type base() const { return current; }
+
+	// Member function operator overloader
+	reverse_iterator& operator++() {
+		--current;
+		return (*this);
+	}
+	reverse_iterator operator++(int) {
 		reverse_iterator temp = *this;
-		++(*this);
+		--current;
 		return (temp);
 	}
-	friend bool operator== (const reverse_iterator& a, const reverse_iterator& b) { return a.m_ptr == b.m_ptr; }
-	friend bool operator!= (const reverse_iterator& a, const reverse_iterator& b) { return a.m_ptr != b.m_ptr; }
-//	~reverse_iterator<T>() { return ; };
+	reverse_iterator& operator--() {
+		++current;
+		return (*this);
+	}
+	reverse_iterator operator--(int) {
+		reverse_iterator temp = *this;
+		++current;
+		return (temp);
+	}
+	reference operator*() const {
+		Iterator tmp = current;
+		return *(--tmp);
+	}
+	pointer operator->() const {
+		return &(operator*());
+	}
+	reverse_iterator operator+(difference_type n) {
+		return reverse_iterator(current - n);
+	}
+	reverse_iterator operator+=(difference_type n) {
+		current -= n;
+		return (*this);
+	}
+	reverse_iterator operator-(difference_type n) {
+		return reverse_iterator(current + n);
+	}
+	reverse_iterator operator-=(difference_type n) {
+		current += n;
+		return (*this);
+	}
+	reference operator[](difference_type n) const {
+		return *(*(this + n));
+	}
+
+	// Non member function overloads
+	friend bool operator==(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() == rhs.base());
+	}
+	friend bool operator!=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() != rhs.base());
+	}
+	friend bool operator<(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() < rhs.base());
+	}
+	friend bool operator<=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() <= rhs.base());
+	}
+	friend bool operator>(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() > rhs.base());
+	}
+	friend bool operator>=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() >= rhs.base());
+	}
+	friend reverse_iterator<Iterator> operator+(difference_type n, const reverse_iterator<Iterator>& rev_it) {
+		return (reverse_iterator(rev_it - n));
+	}
+	friend reverse_iterator<Iterator> operator-(difference_type n, const reverse_iterator<Iterator>& rev_it) {
+		return (reverse_iterator(rev_it + n));
+	}
 };
 
 

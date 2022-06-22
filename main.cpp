@@ -1,57 +1,71 @@
 #include "./inc/Vector.hpp"
 #include <vector>
-#define TESTED_NAMESPACE std
+#define TESTED_NAMESPACE ft
 #define TESTED_TYPE int
 
-void printSize(TESTED_NAMESPACE::vector<TESTED_TYPE> const &ori, bool cap) {
-	cap = true;
-	std::cout << "size: " << ori.size() << std::endl;
-	std::cout << "capacity: " << ori.capacity() << std::endl;
-	std::cout << "max size: " << ori.max_size() << std::endl;
-	if (cap)
-	{
-		typename TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator it = ori.begin();
-		typename TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = ori.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
+int main() {
+	TESTED_NAMESPACE::vector<TESTED_TYPE> mine;
+	for (int i = 0; i < 10; i++) {
+		mine.push_back(i);
 	}
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = mine.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator it3 = mine.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it2 = mine.end();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rev_it(it);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rev_it2(it2);
+	for (; rev_it2 != rev_it; rev_it2++)
+		std::cout << *rev_it2 << std::endl;
 }
 
-void	is_empty(std::vector<int> const &vct)
-{
-	std::cout << "is_empty: " << vct.empty() << std::endl;
-}
-
-
-int main()
-{
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(7);
-
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-	{
-		vct.at(i) = (vct.size() - i) * 3;
-		std::cout << "vct.at(): " << vct.at(i) << " | ";
-		std::cout << "vct[]: " << vct[i] << std::endl;
-	}
-	printSize(vct, true);
-
-	TESTED_NAMESPACE::vector<TESTED_TYPE> const vct_c(vct);
-
-	std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
-	std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
-
-	try {
-		vct.at(10) = 42;
-	}
-	catch (std::out_of_range &e) {
-		std::cout << "Catch out_of_range exception!" << std::endl;
-	}
-	catch (std::exception &e) {
-		std::cout << "Catch exception: " << e.what() << std::endl;
-	}
-	return (0);
-}
+//void printSize(TESTED_NAMESPACE::vector<TESTED_TYPE> const &ori, bool cap) {
+//	cap = true;
+//	std::cout << "size: " << ori.size() << std::endl;
+//	std::cout << "capacity: " << ori.capacity() << std::endl;
+//	std::cout << "max size: " << ori.max_size() << std::endl;
+//	if (cap)
+//	{
+//		typename TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator it = ori.begin();
+//		typename TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = ori.end();
+//		std::cout << std::endl << "Content is:" << std::endl;
+//		for (; it != ite; ++it)
+//			std::cout << "- " << *it << std::endl;
+//	}
+//}
+//
+//void	is_empty(std::vector<int> const &vct)
+//{
+//	std::cout << "is_empty: " << vct.empty() << std::endl;
+//}
+//
+//
+//int main()
+//{
+//	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(7);
+//
+//	for (unsigned long int i = 0; i < vct.size(); ++i)
+//	{
+//		vct.at(i) = (vct.size() - i) * 3;
+//		std::cout << "vct.at(): " << vct.at(i) << " | ";
+//		std::cout << "vct[]: " << vct[i] << std::endl;
+//	}
+//	printSize(vct, true);
+//
+//	TESTED_NAMESPACE::vector<TESTED_TYPE> const vct_c(vct);
+//
+//	std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
+//	std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
+//
+//	try {
+//		vct.at(10) = 42;
+//	}
+//	catch (std::out_of_range &e) {
+//		std::cout << "Catch out_of_range exception!" << std::endl;
+//	}
+//	catch (std::exception &e) {
+//		std::cout << "Catch exception: " << e.what() << std::endl;
+//	}
+//	return (0);
+//}
 //vct.at(): 21 | vct[]: 21
 //vct.at(): 18 | vct[]: 18
 //vct.at(): 15 | vct[]: 15

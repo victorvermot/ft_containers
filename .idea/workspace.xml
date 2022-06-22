@@ -17,9 +17,22 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d69c3f85-1137-42e8-9ee2-e4023826826c" name="Changes" comment="">
+    <list default="true" id="f551e137-da67-4961-b483-9120b8cc6396" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Iterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Iterator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/IteratorTraits.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/IteratorTraits.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Map.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Map.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Pair.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Pair.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/RaIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/RaIterator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/ReverseIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/ReverseIterator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Vector.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/enable_if.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/enable_if.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main_official.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main_official.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +54,7 @@
     <option name="majorVersion" value="2022" />
     <option name="minorVersion" value="1.1" />
   </component>
-  <component name="ProjectId" id="2ATDkHbiHqE9ylx5r4YbCsxBQeh" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2AhkCm5pZZaX7uysDAlFiuvILgu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -52,7 +64,6 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -69,14 +80,21 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d69c3f85-1137-42e8-9ee2-e4023826826c" name="Changes" comment="" />
-      <created>1655024822988</created>
+      <changelist id="f551e137-da67-4961-b483-9120b8cc6396" name="Changes" comment="" />
+      <created>1655469080430</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1655024822988</updated>
-      <workItem from="1655024824232" duration="10198000" />
-      <workItem from="1655138802518" duration="1643000" />
-      <workItem from="1655190953206" duration="511000" />
+      <updated>1655469080430</updated>
+      <workItem from="1655469083013" duration="3506000" />
+      <workItem from="1655558954313" duration="4359000" />
+      <workItem from="1655573802900" duration="334000" />
+      <workItem from="1655720712494" duration="98000" />
+      <workItem from="1655826060592" duration="1202000" />
+      <workItem from="1655830629762" duration="3030000" />
+      <workItem from="1655837462419" duration="4946000" />
+      <workItem from="1655884872087" duration="6585000" />
+      <workItem from="1655896853114" duration="386000" />
+      <workItem from="1655906538857" duration="1008000" />
     </task>
     <servers />
   </component>
