@@ -33,6 +33,13 @@ namespace ft {
 		size_type 			_size;
 		size_type 			_capacity;
 
+		void	ft_free() {
+			for (size_type i = 0; i < _size; i++) {
+				_alloc.destroy(_vector + i);
+			}
+			_alloc.deallocate(_vector, _capacity);
+		}
+
 	public:
 		// Constructors and destructor
 		explicit vector() : _size(0), _capacity(0) {
@@ -48,7 +55,11 @@ namespace ft {
 		template <class InputIterator>
 		vector(typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
 				const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
-			std::ptrdiff_t diff = last - first;
+			InputIterator it = first;
+			size_type	  diff = 0;
+			for (; it != last; it++) {
+				diff++;
+			}
 			_size = diff;
 			_capacity = diff;
 			_vector = _alloc.allocate(_capacity);
@@ -153,15 +164,20 @@ namespace ft {
 		// Function members modifiers
 		template <class InputIterator>
 		void assign (typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
-			if (static_cast<long unsigned int>(last - first) > _capacity) {
-				this->reserve(last - first);
+			InputIterator it1 = first;
+			size_type	  diff = 0;
+			for (; it1 != last; it1++) {
+				diff++;
+			}
+			if (diff > _capacity) {
+				this->reserve(diff);
 			}
 			int i = 0;
 			for (InputIterator it = first; it != last; it++) {
 				_alloc.construct(_vector + i, *it);
 				i++;
 			}
-			_size = static_cast<size_type>(last - first);
+			_size = diff;
 		}
 
 		void assign(size_type n, const value_type& val) {
@@ -192,7 +208,6 @@ namespace ft {
 			temp = this->_capacity;
 			this->_capacity = x._capacity;
 			x._capacity = temp;
-
 			std::swap(this->_vector, x._vector);
 		}
 
@@ -233,7 +248,11 @@ namespace ft {
 
 		template <class InputIterator>
 		void insert (iterator position, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
-			std::ptrdiff_t diff = last - first;
+			InputIterator it1 = first;
+			size_type	  diff = 0;
+			for (; it1 != last; it1++) {
+				diff++;
+			}
 			if (_size + diff > _capacity) {
 				_capacity = _size + diff;
 			}
