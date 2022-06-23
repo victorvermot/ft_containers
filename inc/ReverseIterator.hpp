@@ -6,15 +6,21 @@
 # include "IteratorTraits.hpp"
 
 template <typename Iterator>
-class reverse_iterator  : public ft::iterator<ft::random_access_iterator_tag, typename Iterator::value_type> {
+class reverse_iterator {
 
 public:
 	typedef Iterator iterator_type;
-	typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
-	typedef typename iterator_traits<Iterator>::value_type value_type;
-	typedef typename iterator_traits<Iterator>::difference_type difference_type;
-	typedef typename iterator_traits<Iterator>::pointer pointer;
-	typedef typename iterator_traits<Iterator>::reference reference;
+//	typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+//	typedef typename ft::iterator_traits<Iterator>::value_type value_type;
+//	typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
+//	typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+//	typedef typename ft::iterator_traits<Iterator>::reference reference;
+
+	typedef typename Iterator::difference_type difference_type;
+	typedef typename Iterator::value_type value_type;
+	typedef typename Iterator::pointer pointer;
+	typedef typename Iterator::reference reference;
+	typedef typename Iterator::iterator_category iterator_category;
 
 private:
 
@@ -24,11 +30,14 @@ public:
 
 	// Constructors
 	reverse_iterator() : current() {};
-	explicit reverse_iterator (iterator_type it) { current = it; }
+	explicit reverse_iterator (iterator_type it) : current(it) {}
 	template <class Iter>
 	explicit reverse_iterator (const reverse_iterator<Iter>& rev_it) {
-		this->current = rev_it._base();
-		return (*this);
+		this->current = rev_it.base();
+	}
+
+	operator reverse_iterator<ft::random_access_iterator<const value_type> >() const {
+		return (reverse_iterator<ft::random_access_iterator<const value_type> >(this->base()));
 	}
 
 	// Member function
@@ -44,6 +53,7 @@ public:
 		--current;
 		return (temp);
 	}
+
 	reverse_iterator& operator--() {
 		++current;
 		return (*this);
@@ -82,6 +92,9 @@ public:
 	friend bool operator==(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 		return (lhs.base() == rhs.base());
 	}
+	friend bool operator==(reverse_iterator<Iterator>& lhs, reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() == rhs.base());
+	}
 	friend bool operator!=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 		return (lhs.base() != rhs.base());
 	}
@@ -100,9 +113,15 @@ public:
 	friend reverse_iterator<Iterator> operator+(difference_type n, const reverse_iterator<Iterator>& rev_it) {
 		return (reverse_iterator(rev_it - n));
 	}
-	friend reverse_iterator<Iterator> operator-(difference_type n, const reverse_iterator<Iterator>& rev_it) {
-		return (reverse_iterator(rev_it + n));
+	friend reverse_iterator<Iterator> operator+(difference_type n, reverse_iterator<Iterator>& rev_it) {
+		return (reverse_iterator(rev_it - n));
 	}
+	friend difference_type operator-(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+		return (lhs.base() - rhs.base());
+	}
+//	friend reverse_iterator<Iterator> operator-(difference_type n, reverse_iterator<Iterator>& rev_it) {
+//		return (reverse_iterator(rev_it + n));
+//	}
 };
 
 

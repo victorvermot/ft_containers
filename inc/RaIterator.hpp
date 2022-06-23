@@ -4,6 +4,8 @@
 # include <iostream>
 # include "Iterator.hpp"
 # include "enable_if.hpp"
+//# include "IteratorTraits.hpp"
+//# include "RaIterator.hpp"
 
 namespace ft {
 
@@ -18,8 +20,8 @@ namespace ft {
 
 		typedef T value_type;
 		typedef std::ptrdiff_t difference_type;
-		typedef value_type* pointer;
-		typedef value_type& reference;
+		typedef T* pointer;
+		typedef T& reference;
 		typedef random_access_iterator_tag iterator_category;
 
 	private:
@@ -59,6 +61,11 @@ namespace ft {
 		random_access_iterator &operator++() {
 			_ptr++;
 			return (*this);
+		}
+
+		// Life hack pour passer un iterateur en const
+		operator random_access_iterator<const T>() const {
+			return (random_access_iterator<const T>(this->_ptr));
 		}
 
 		random_access_iterator operator++(int) {

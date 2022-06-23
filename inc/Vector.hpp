@@ -8,6 +8,7 @@
 # include <iostream>
 # include <memory>
 # include <stdexcept>
+# include "lexicographical_compare.hpp"
 
 namespace ft {
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -22,8 +23,8 @@ namespace ft {
 		typedef	size_t		size_type;
 		typedef ft::random_access_iterator<value_type> 			iterator;
 		typedef ft::random_access_iterator<const value_type>	const_iterator;
+		typedef reverse_iterator<const_iterator> 				const_reverse_iterator;
 		typedef reverse_iterator<iterator> 						reverse_iterator;
-//		typedef reverse_iterator<const_iterator> 			const_reverse_iterator;
 
 	private:
 		// private members
@@ -35,11 +36,11 @@ namespace ft {
 	public:
 		// Constructors and destructor
 		explicit vector() : _size(0), _capacity(0) {
-			_vector = _alloc.allocate(_capacity);
+			_vector = _alloc.allocate(0);
 		}
 		explicit vector<T, Alloc>(size_t size, const value_type& val = value_type(),
 				  const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(size), _capacity(size) {
-			_vector = _alloc.allocate(_capacity);
+			_vector = _alloc.allocate(_capacity + 1);
 			for (size_type i = 0; i < _size; i++) {
 				_alloc.construct(_vector + i, val);
 			}
@@ -143,6 +144,12 @@ namespace ft {
 		iterator end() { return (iterator(_vector + _size)); }
 		const_iterator end() const { return (const_iterator(_vector + _size)); }
 
+		// reverse iterator
+		reverse_iterator rbegin() { return (reverse_iterator(iterator(_vector + _size))); }
+		const_reverse_iterator rbegin() const { return (const_reverse_iterator(const_iterator(_vector + _size))); }
+		reverse_iterator rend() { return (reverse_iterator(iterator(_vector))); }
+		const_reverse_iterator rend() const { return (const_reverse_iterator(const_iterator(_vector))); }
+
 		// Function members modifiers
 		template <class InputIterator>
 		void assign (typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
@@ -156,6 +163,7 @@ namespace ft {
 			}
 			_size = static_cast<size_type>(last - first);
 		}
+
 		void assign(size_type n, const value_type& val) {
 			if (n > _capacity) {
 				this->reserve(n);
@@ -163,37 +171,52 @@ namespace ft {
 			std::uninitialized_fill_n(_vector, n, val);
 			_size = n;
 		}
+
 		void push_back(const value_type& val) {
-			if (_size + 1 > _capacity) {
+			if (_capacity == 0)
+				_capacity = 1;
+			else if (_size + 1 > _capacity) {
 				_capacity *= 2;
 				this->reserve(_capacity);
 			}
 			_size++;
 			this->back() = val;
 		}
+
 		void swap (vector& x) {
+			size_type temp;
+			temp = this->_size;
+			this->_size = x._size;
+			x._size = temp;
+
+			temp = this->_capacity;
+			this->_capacity = x._capacity;
+			x._capacity = temp;
+
 			std::swap(this->_vector, x._vector);
 		}
+
 		void pop_back() {
 			_alloc.destroy(&this->back());
 			_size--;
 		}
+
 		iterator insert(iterator position, const value_type& val) {
+			size_type diff = position - this->begin();
+
 			if (_size + 1 > _capacity) {
 				_capacity *= 2;
 				this->reserve(_capacity);
 			}
-			value_type temp = *position;
-			*position = val;
-			*(position + 1) = temp;
-			if (position + 2 != this->end()) {
-				for (iterator it = position + 2; it != this->end(); it++) {
-					*it = *(it - 1);
-				}
-			}
+			value_type *temp = _alloc.allocate(_capacity);
 			_size++;
-			return (position);
+			std::uninitialized_copy(this->begin(), position, temp);
+			temp[position - this->begin()] = val;
+			std::uninitialized_copy(position, this->end(), temp + (position - this->begin() + 1));
+			_vector = temp;
+			return (iterator(_vector + diff));
 		}
+
 		void insert(iterator position, size_type n, const value_type& val) {
 			if (_size + n > _capacity) {
 				_capacity = _size + n;
@@ -202,11 +225,12 @@ namespace ft {
 			value_type *temp = _alloc.allocate(_capacity);
 			std::uninitialized_copy(this->begin(), position, temp);
 			std::uninitialized_fill_n(temp + (position - this->begin()), n, val);
-			std::uninitialized_copy(position, position + n, temp + (position - this->begin() + n));
+			std::uninitialized_copy(position, this->end(), temp + (position - this->begin() + n));
 			_alloc.deallocate(_vector, _capacity);
 			_vector = temp;
 			_size += n;
 		}
+
 		template <class InputIterator>
 		void insert (iterator position, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
 			std::ptrdiff_t diff = last - first;
@@ -216,23 +240,23 @@ namespace ft {
 			value_type *temp = _alloc.allocate(_capacity);
 			std::uninitialized_copy(this->begin(), position, temp);
 			std::uninitialized_copy(first, last, temp + (position - this->begin()));
-			std::uninitialized_copy(position, position + diff, temp + (position - this->begin() + diff));
+			std::uninitialized_copy(position, this->end(), temp + (position - this->begin() + diff));
 			_alloc.deallocate(_vector, _capacity);
 			_vector = temp;
 			_size += diff;
 		}
 
 		iterator erase(iterator position) {
-			for (iterator it = position; it != this->end() - 1; it++) {
+			_size--;
+			for (iterator it = position; it != this->end(); it++) {
 				*it = *(it + 1);
 			}
-			_size--;
 			return (position);
 		}
 
 		iterator erase(iterator first, iterator last) {
 			size_type diff = last - first;
-			for (iterator it = first; it != last; it++) {
+			for (iterator it = first; it != last + 1; it++) {
 				*it = *(it + diff);
 			}
 			_size -= diff;
@@ -246,13 +270,42 @@ namespace ft {
 			_size = 0;
 		}
 
-		friend bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs == rhs ); }
-		friend bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs != rhs ); }
-		friend bool operator> (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs > rhs ); }
-		friend bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs >= rhs ); }
-		friend bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs < rhs ); }
-		friend bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (lhs <= rhs ); }
+		friend bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			if (lhs._size != rhs._size)
+				return (lhs._size == rhs._size);
+			else
+			{
+				for (size_type i = 0; i < lhs._size; i++) {
+					if (lhs.at(i) != rhs.at(i))
+						return false;
+				}
+			}
+			return true;
+		}
+		friend bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			return !(lhs == rhs);
+		}
+		friend bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		}
+		friend bool operator> (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			return (rhs < lhs);
+		}
+		friend bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			return !(lhs < rhs);
+		}
+		friend bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+			return !(rhs < lhs);
+		}
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
+			size_type temp;
+			temp = x._size;
+			x._size = y._size;
+			y._size = temp;
+
+			temp = x._capacity;
+			x._capacity = y._capacity;
+			y._capacity = temp;
 			std::swap(x._vector, y._vector);
 		}
 

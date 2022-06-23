@@ -18,21 +18,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f551e137-da67-4961-b483-9120b8cc6396" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inc/lexicographical_compare.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Iterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Iterator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ft_containers.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ft_containers.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/ft_containers" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/ft_containers" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/IteratorTraits.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/IteratorTraits.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Map.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Map.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Pair.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Pair.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/RaIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/RaIterator.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/ReverseIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/ReverseIterator.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/Vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Vector.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/enable_if.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/enable_if.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main_official.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main_official.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +64,8 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RunManager">
@@ -94,11 +92,26 @@
       <workItem from="1655837462419" duration="4946000" />
       <workItem from="1655884872087" duration="6585000" />
       <workItem from="1655896853114" duration="386000" />
-      <workItem from="1655906538857" duration="1008000" />
+      <workItem from="1655906538857" duration="1735000" />
+      <workItem from="1655908595408" duration="3518000" />
+      <workItem from="1655917352860" duration="2911000" />
+      <workItem from="1655968327518" duration="14697000" />
+      <workItem from="1655992167787" duration="235000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>16</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
