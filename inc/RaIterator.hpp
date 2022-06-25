@@ -58,6 +58,8 @@ namespace ft {
 
 		reference operator[](int index) { return _ptr[index]; }
 
+		reference operator[](int index) const { return _ptr[index]; }
+
 		random_access_iterator &operator++() {
 			_ptr++;
 			return (*this);
@@ -101,6 +103,7 @@ namespace ft {
 			return (temp);
 		}
 
+
 //		template<bool Q = Const>
 //		typename ft::enable_if<Q, const random_access_iterator>::type operator+(unsigned int n) {
 //			random_access_iterator temp = *this;
@@ -109,6 +112,12 @@ namespace ft {
 //		}
 
 		random_access_iterator operator-(unsigned int n) {
+			random_access_iterator temp = *this;
+			temp -= n;
+			return (temp);
+		}
+
+		const random_access_iterator operator-(unsigned int n) const {
 			random_access_iterator temp = *this;
 			temp -= n;
 			return (temp);

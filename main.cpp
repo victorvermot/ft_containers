@@ -1,22 +1,39 @@
 #include "./inc/Vector.hpp"
+#include "./inc/stack.hpp"
 #include <vector>
 #define TESTED_NAMESPACE ft
 #define TESTED_TYPE int
+#define t_stack_ TESTED_NAMESPACE::stack<TESTED_TYPE>
+typedef t_stack_::container_type container_type;
 
-int main() {
-	const int size = 5;
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it = vct.rbegin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator ite = vct.rbegin();
+int		main(void)
+{
+	container_type	ctnr;
 
-	for (int i = 0; i < size; i++) {
-		vct[i] = i;
-		std::cout << vct[i] << std::endl;
-	}
-	std::cout << "-------------------------" << std::endl;
-	for (int i = 0; i < size; ++i) {
-		std::cout << it[1] << std::endl;
-		it[i] = (size - i) * 5;
-		std::cout << it[i] << std::endl;
-	}
+	ctnr.push_back(21);
+	ctnr.push_back(42);
+	ctnr.push_back(1337);
+	ctnr.push_back(19);
+	ctnr.push_back(0);
+	ctnr.push_back(183792);
+
+	t_stack_		stck(ctnr);
+//	printSize(stck);
+
+	std::cout << "empty: " << stck.empty() << std::endl;
+	std::cout << "size: " << stck.size() << std::endl;
+
+	stck.push(1);
+	stck.push(2);
+	stck.push(3);
+	stck.push(4);
+	stck.push(5);
+	stck.push(6);
+
+	std::cout << "Added some elements" << std::endl;
+
+	std::cout << "empty: " << stck.empty() << std::endl;
+//	printSize(stck);
+
+	return (0);
 }

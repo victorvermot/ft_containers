@@ -1,8 +1,0 @@
-# ninja log v5
-535	617	1655992375000000000	ft_containers	51c5852695ac9ef5
-1	27	1655559346000000000	CMakeFiles/ft_containers.dir/src/test.cpp.o	cf2039e4e9fdf638
-1	144	1656013857656497716	build.ninja	532b7872b3e9e365
-9	535	1655992374000000000	CMakeFiles/ft_containers.dir/main.cpp.o	57050b2295d46c48
-1	48	1655559319000000000	CMakeFiles/ft_containers.dir/src/main_official.cpp.o	1a60ff91e092eb0e
-0	12	1656017810447075622	CMakeFiles/ft_containers.dir/src/test.cpp.o	bbdef5c6e6e9c57
-0	16	1656017810451075567	CMakeFiles/ft_containers.dir/src/main_official.cpp.o	c6beda91e005c5c3
