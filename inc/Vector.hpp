@@ -9,6 +9,7 @@
 # include <memory>
 # include <stdexcept>
 # include "lexicographical_compare.hpp"
+# include "swap.hpp"
 
 namespace ft {
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -36,7 +37,8 @@ namespace ft {
 	public:
 		// Constructors and destructor
 		explicit vector() : _size(0), _capacity(0) {
-			_vector = _alloc.allocate(0);
+			std::cout << "GIGA CHAD DEBUG:" << std::endl;
+			_vector = _alloc.allocate(1);
 		}
 		explicit vector<T, Alloc>(size_t size, const value_type& val = value_type(),
 				  const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(size), _capacity(size) {
@@ -71,22 +73,15 @@ namespace ft {
 		// Operators Overload
 		vector& operator=(const vector& rhs) {
 			if (this != &rhs) {
-				_alloc = allocator_type();
+				_alloc = rhs._alloc;
 				_size = rhs._size;
-				_capacity = rhs._size;
+				_capacity = rhs._capacity;
 				_vector = _alloc.allocate(_capacity);
-				for (size_type i = 0; i < rhs._size; i++) {
-					std::cout << rhs._vector[i] << std::endl;
-				}
-				for (size_type i = 0; i < rhs._size; i++) {
-					std::cout << rhs._vector[i] << std::endl;
+				for (size_type i = 0; i < _size; i++) {
 					_vector[i] = rhs._vector[i];
 				}
-//				std::uninitialized_copy(rhs.begin(), rhs.end(), _vector);
+				std::uninitialized_copy(rhs.begin(), rhs.end(), _vector);
 			}
-//			for (size_type i = 0; i < _size; i++) {
-//				std::cout << _vector[i] << std::endl;
-//			}
 			return (*this);
 		}
 		reference operator[](size_type index)
@@ -184,26 +179,22 @@ namespace ft {
 		}
 
 		void push_back(const value_type& val) {
-			if (_capacity == 0)
+			if (_capacity == 0) {
 				_capacity = 1;
+				this->reserve(_capacity);
+			}
 			else if (_size + 1 > _capacity) {
 				_capacity *= 2;
 				this->reserve(_capacity);
 			}
+			_alloc.construct(_vector + _size, val);
 			_size++;
-			this->back() = val;
 		}
 
-		void swap (vector& x) {
-			size_type temp;
-			temp = this->_size;
-			this->_size = x._size;
-			x._size = temp;
-
-			temp = this->_capacity;
-			this->_capacity = x._capacity;
-			x._capacity = temp;
-			std::swap(this->_vector, x._vector);
+		void swap(vector& x) {
+			ft::swap(this->_size, x._size);
+			ft::swap(this->_capacity, x._capacity);
+			ft::swap(this->_vector, x._vector);
 		}
 
 		void pop_back() {
@@ -316,15 +307,9 @@ namespace ft {
 			return !(rhs < lhs);
 		}
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
-			size_type temp;
-			temp = x._size;
-			x._size = y._size;
-			y._size = temp;
-
-			temp = x._capacity;
-			x._capacity = y._capacity;
-			y._capacity = temp;
-			std::swap(x._vector, y._vector);
+			ft::swap(x._size, y._size);
+			ft::swap(x._capacity, y._capacity);
+			ft::swap(x._vector, y._vector);
 		}
 
 		// ALlocators

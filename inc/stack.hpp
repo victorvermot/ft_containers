@@ -19,6 +19,12 @@ namespace ft {
 
 	public:
 		explicit stack (const container_type& ctnr = container_type()) {
+//			_ctnr.push_back(21);
+//			_ctnr.push_back(42);
+//			_ctnr.push_back(1337);
+//			_ctnr.push_back(19);
+//			_ctnr.push_back(0);
+//			_ctnr.push_back(183792);
 			_ctnr = ctnr;
 		}
 

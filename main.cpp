@@ -1,39 +1,16 @@
-#include "./inc/Vector.hpp"
-#include "./inc/stack.hpp"
-#include <vector>
-#define TESTED_NAMESPACE ft
-#define TESTED_TYPE int
-#define t_stack_ TESTED_NAMESPACE::stack<TESTED_TYPE>
-typedef t_stack_::container_type container_type;
+# include <map>
+# include <iostream>
 
 int		main(void)
 {
-	container_type	ctnr;
-
-	ctnr.push_back(21);
-	ctnr.push_back(42);
-	ctnr.push_back(1337);
-	ctnr.push_back(19);
-	ctnr.push_back(0);
-	ctnr.push_back(183792);
-
-	t_stack_		stck(ctnr);
-//	printSize(stck);
-
-	std::cout << "empty: " << stck.empty() << std::endl;
-	std::cout << "size: " << stck.size() << std::endl;
-
-	stck.push(1);
-	stck.push(2);
-	stck.push(3);
-	stck.push(4);
-	stck.push(5);
-	stck.push(6);
-
-	std::cout << "Added some elements" << std::endl;
-
-	std::cout << "empty: " << stck.empty() << std::endl;
-//	printSize(stck);
-
+	std::map<std::string, std::string> test;
+	std::map<std::string, std::string>::iterator it;
+	std::cout << test.insert(std::pair<std::string, std::string>("Yolo", "swag")).first->first << std::endl;
+	std::cout << test.insert(std::pair<std::string, std::string>("Yolo", "swag54")).first->first << std::endl;
+//	std::cout << test.insert(std::pair<std::string, std::string>("Yolo54", "swag43")).second << std::endl;
+//	test.insert(std::pair<std::string, std::string>("Yolo", "swag2"));
+	for (it = test.begin(); it != test.end(); it++) {
+		std::cout << it->second << std::endl;
+	}
 	return (0);
 }

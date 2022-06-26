@@ -1,47 +1,53 @@
 #ifndef PAIR_H
 # define PAIR_H
 
-template<typename T1, typename T2>
-class pair {
-private:
-	typedef T1 first_type;
-	typedef T2 second_type;
 
-public:
-	first_type 	first;
-	second_type second;
+namespace ft {
 
-	pair();
+	template<typename T1, typename T2>
+	class pair {
+	private:
+		typedef T1 first_type;
+		typedef T2 second_type;
 
-	pair (const pair& other) { *this = other; }
+	public:
+		first_type 	first;
+		second_type second;
 
-	pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+		pair();
 
-	friend bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return lhs.first==rhs.first && lhs.second==rhs.second; }
+		pair(const pair& other) { *this = other; }
 
-	friend bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return lhs != rhs; }
+		pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
-	friend bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return lhs.first < rhs.first || (rhs.first >= lhs.first && lhs.second < rhs.second); }
+		friend bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return lhs.first==rhs.first && lhs.second==rhs.second; }
 
-	friend bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return !(rhs<lhs); }
+		friend bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return lhs != rhs; }
 
-	friend bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return rhs<lhs; }
+		friend bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return lhs.first < rhs.first || (rhs.first >= lhs.first && lhs.second < rhs.second); }
 
-	friend bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{ return !(lhs<rhs); }
+		friend bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return !(rhs<lhs); }
 
-	pair &operator=(const pair &rhs) {
-		this->first = rhs.first;
-		this->second = rhs.second;
-		return (*this);
+		friend bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return rhs<lhs; }
+
+		friend bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+		{ return !(lhs<rhs); }
+
+		pair &operator=(const pair &rhs) {
+			if (this != &rhs) {
+				this->first = rhs.first;
+				this->second = rhs.second;
+			}
+			return (*this);
+		};
+		~pair();
 	};
-	~pair();
-};
+}
 
 template <class T1,class T2>
 pair<T1,T2> make_pair(T1 x, T2 y)
