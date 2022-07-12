@@ -14,7 +14,7 @@ namespace ft {
 		first_type 	first;
 		second_type second;
 
-		pair();
+		pair() {};
 
 		pair(const pair& other) { *this = other; }
 
@@ -45,14 +45,14 @@ namespace ft {
 			}
 			return (*this);
 		};
-		~pair();
+		~pair() {};
 	};
+	template <class T1,class T2>
+	pair<T1,T2> make_pair(T1 x, T2 y)
+	{
+		return (pair<T1,T2>(x,y));
+	}
 }
 
-template <class T1,class T2>
-pair<T1,T2> make_pair(T1 x, T2 y)
-{
-	return (pair<T1,T2>(x,y));
-}
 
 #endif
