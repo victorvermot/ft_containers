@@ -16,9 +16,15 @@ namespace ft {
 
 		pair() {};
 
-		pair(const pair& other) { *this = other; }
-
 		pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+
+//		pair(const pair& other) { *this = other; }
+
+		template<class U, class V>
+		explicit pair(const pair<U, V>& pr) : first(pr.first), second(pr.second) {}
+
+		template<class U, class V>
+		explicit pair(const std::pair<U, V>& pr) : first(pr.first), second(pr.second) {}
 
 		friend bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 		{ return lhs.first==rhs.first && lhs.second==rhs.second; }
@@ -47,12 +53,12 @@ namespace ft {
 		};
 		~pair() {};
 	};
+
 	template <class T1,class T2>
 	pair<T1,T2> make_pair(T1 x, T2 y)
 	{
 		return (pair<T1,T2>(x,y));
 	}
 }
-
 
 #endif
