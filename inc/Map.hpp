@@ -60,6 +60,15 @@ namespace ft {
 				return (*r);
 			}
 
+            void makeEmpty(Node** r) {
+                if (*r) {
+                    makeEmpty(&(*r)->left);
+                    makeEmpty(&(*r)->right);
+                    delete *r;
+                }
+                *r = NULL;
+            }
+
 		public:
 
 			class bstIterator {
@@ -71,7 +80,7 @@ namespace ft {
 				const bstree*	tree;
 
 			public:
-				typedef ft::pair<key_type, mapped_type> value_type;
+				typedef ft::pair<const key_type, mapped_type> value_type;
 
 				bstIterator(Node* p, const bstree* t) : nodePtr(p), tree(t) {}
 				bstIterator() : nodePtr(NULL), tree(NULL) {}
@@ -117,12 +126,15 @@ namespace ft {
 					}
 					else {
 						if (nodePtr->right != NULL) {
-							while (nodePtr->right != NULL) {
+                            nodePtr = nodePtr->right;
+							while (nodePtr->left != NULL) {
 								nodePtr = nodePtr->right;
 							}
 						}
 						else {
 							p = nodePtr->parent;
+                            std::cout << nodePtr << std::endl;
+                            std::cout << p->right << std::endl;
 							while (p != NULL && nodePtr == p->right) {
 								nodePtr = p;
 								p = p->parent;
@@ -174,6 +186,24 @@ namespace ft {
 
 			bstree() : _root(NULL) {}
 
+            bstree(const bstree& other) : _root(NULL) {
+                *this = other;
+            }
+
+            bstree& operator=(const bstree& rhs) {
+                if (this != &rhs) {
+                    _root = clone(rhs._root);
+                }
+                return *this;
+            }
+
+            Node* clone(Node* r) const {
+                if (r == NULL)
+                    return NULL;
+                else
+                    return new Node(r->data, clone(r->left), clone(r->right), r->parent);
+            }
+
 			const_iterator insert(const value_type& x) {
 				Node* temp = insert(&_root, NULL, x);
 //				if (temp == NULL)
@@ -207,19 +237,9 @@ namespace ft {
 				return current;
 			}
 
-			void makeEmpty(Node* root) {
-				if (root) {
-					makeEmpty(root->left);
-					makeEmpty(root->right);
-//					_alloc.deallocate(root, sizeof(Node));
-					delete root;
-				}
-				root = NULL;
-			}
-
-			Node* getRoot() {
-				return _root;
-			}
+            void makeEmpty() {
+                makeEmpty(&_root);
+            }
 
 			Node* deleteNode(Node* root, key_type key) {
 				if (root == NULL)
@@ -279,7 +299,7 @@ namespace ft {
 				return search(root->left, key);
 			}
 
-			Node* getNewNode(ft::pair<key_type, key_compare> data) {
+			Node* getNewNode(value_type data) {
 				Node* newNode = _alloc.allocate(sizeof(Node));
 				newNode->data = data;
 				newNode->left = NULL;
@@ -352,7 +372,7 @@ namespace ft {
 		size_type size() const { return _size; }
 		size_type max_size() const { return _alloc.max_size(); }
 
-		pair<iterator, bool> insert (const value_type& val) {
+        pair<iterator, bool> insert(const value_type& val) {
 			iterator temp = _tree.insert(val);
 			if (temp == _tree.end())
 				return (ft::make_pair<iterator, bool>(temp, false));
@@ -363,6 +383,7 @@ namespace ft {
 		void insert (InputIterator first, InputIterator last) {
 			InputIterator it = first;
 			for (; it != last; it++) {
+                _tree.insert(*it);
 				_size++;
 			}
 		}
@@ -406,7 +427,7 @@ namespace ft {
 		}
 
 		void clear() {
-			_tree.makeEmpty(_tree.getRoot());
+			_tree.makeEmpty();
 			_size = 0;
 		}
 

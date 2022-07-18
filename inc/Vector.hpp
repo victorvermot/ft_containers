@@ -37,7 +37,6 @@ namespace ft {
 	public:
 		// Constructors and destructor
 		explicit vector() : _size(0), _capacity(0) {
-			std::cout << "GIGA CHAD DEBUG:" << std::endl;
 			_vector = _alloc.allocate(1);
 		}
 		explicit vector<T, Alloc>(size_t size, const value_type& val = value_type(),

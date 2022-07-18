@@ -16,7 +16,7 @@ namespace ft {
 
 		pair() {};
 
-		pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+        pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
 //		pair(const pair& other) { *this = other; }
 
