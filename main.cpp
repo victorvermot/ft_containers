@@ -60,7 +60,7 @@ void	is_empty(T const &mp)
 int		main(void)
 {
     std::list<T3> lst;
-    unsigned int lst_size = 7;
+    unsigned int lst_size = 2;
     for (unsigned int i = 0; i < lst_size; ++i)
         lst.push_back(T3('a' + i, lst_size - i));
 
@@ -76,10 +76,11 @@ int		main(void)
     is_empty(mp2);
 
     it = mp.begin();
-    for (unsigned long int i = 3; i < mp.size(); ++i)
+    for (unsigned long int i = 0; i < mp.size(); ++i)
         it++->second = i * 7;
 
     printSize(mp);
+    std::cout << "DELIMITER ---------------" << std::endl;
     printSize(mp2);
 
     mp2.clear();

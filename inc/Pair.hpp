@@ -18,10 +18,14 @@ namespace ft {
 
         pair(const first_type& a, const second_type& b) : first(a), second(b) {}
 
+        operator pair<const T1, T2>() const {
+            return (pair<const T1, T2>(this->first, this->second));
+        }
+
 //		pair(const pair& other) { *this = other; }
 
 		template<class U, class V>
-		explicit pair(const pair<U, V>& pr) : first(pr.first), second(pr.second) {}
+		explicit pair(const pair<const U, V>& pr) : first(pr.first), second(pr.second) {}
 
 		template<class U, class V>
 		explicit pair(const std::pair<U, V>& pr) : first(pr.first), second(pr.second) {}
@@ -46,7 +50,7 @@ namespace ft {
 
 		pair &operator=(const pair &rhs) {
 			if (this != &rhs) {
-				this->first = rhs.first;
+//				this->first = rhs.first;
 				this->second = rhs.second;
 			}
 			return (*this);
