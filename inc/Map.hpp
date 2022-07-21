@@ -46,27 +46,28 @@ namespace ft {
 			Node* _root;
 			Alloc _alloc;
 
-			Node* insert(Node** r, Node* par, const value_type& data) {
-				if (*r == NULL) {
-					*r = new Node(data, NULL, NULL, par);
-					return *r;
+			Node* insert(Node*& r, Node* par, const value_type& data) {
+				if (r == NULL) {
+					r = new Node(data, NULL, NULL, par);
+					return r;
 				}
-				else if (Compare()(data.first, (*r)->data.first)) {
-					return insert(&((*r)->left), *r, data);
+				else if (Compare()(data.first, r->data.first)) {
+					return insert(r->left, r, data);
 				}
-				else if (Compare()((*r)->data.first, data.first)) {
-					return insert(&((*r)->right), *r, data);
+				else if (Compare()(r->data.first, data.first)) {
+					return insert(r->right, r, data);
 				}
-				return (*r);
+                else
+                    return r;
 			}
 
-            void makeEmpty(Node** r) {
-                if (*r) {
-                    makeEmpty(&(*r)->left);
-                    makeEmpty(&(*r)->right);
-                    delete *r;
+            void makeEmpty(Node*& r) {
+                if (r) {
+                    makeEmpty(r->left);
+                    makeEmpty(r->right);
+                    delete r;
                 }
-                *r = NULL;
+                r = NULL;
             }
 
 		public:
@@ -101,7 +102,7 @@ namespace ft {
 					return (tree == rhs.tree && nodePtr == rhs.nodePtr);
 				}
 				bool operator!=(const bstIterator& rhs) const {
-					return !(*this == rhs);
+					return (tree != rhs.tree || nodePtr != rhs.nodePtr);
 				}
 				pointer operator->() const {
 					if (nodePtr == NULL)
@@ -128,7 +129,7 @@ namespace ft {
 						if (nodePtr->right != NULL) {
                             nodePtr = nodePtr->right;
 							while (nodePtr->left != NULL) {
-								nodePtr = nodePtr->right;
+								nodePtr = nodePtr->left;
 							}
 						}
 						else {
@@ -137,7 +138,7 @@ namespace ft {
 								nodePtr = p;
 								p = p->parent;
 							}
-							nodePtr = p;
+                            nodePtr = p;
 						}
 					}
 					return *this;
@@ -189,20 +190,24 @@ namespace ft {
             }
 
             void setParent(Node *r) {
-                if (r->left != NULL) {
-                    r->left->parent = r;
-                    setParent(r->left);
-                }
-                if (r->right != NULL) {
-                    r->right->parent = r;
-                    setParent(r->right);
+                if (r)
+                {
+                    if (r->left != NULL) {
+                        r->left->parent = r;
+                        setParent(r->left);
+                    }
+                    if (r->right != NULL) {
+                        r->right->parent = r;
+                        setParent(r->right);
+                    }
                 }
             }
 
             bstree& operator=(const bstree& rhs) {
                 if (this != &rhs) {
                     _root = clone(rhs._root);
-                    setParent(_root);
+//                    setParent(_root);
+//                    _root->parent = NULL;
                 }
                 return *this;
             }
@@ -215,7 +220,9 @@ namespace ft {
             }
 
 			const_iterator insert(const value_type& x) {
-				Node* temp = insert(&_root, NULL, x);
+				Node* temp = insert(_root, NULL, x);
+//                setParent(_root);
+//                _root->parent = NULL;
 				if (temp == NULL)
 					return end();
 				else
@@ -232,11 +239,11 @@ namespace ft {
 
 
 			Node* minValueNode(Node* node) const {
-				Node* current = node;
-
-				while (current && current->left != NULL)
-					current = current->left;
-				return current;
+				if (node == NULL)
+                    return NULL;
+                if (node->left == NULL)
+                    return node;
+                return minValueNode(node->left);
 			}
 
             Node** getRoot() {
@@ -252,44 +259,48 @@ namespace ft {
 			}
 
             void makeEmpty() {
-                makeEmpty(&_root);
+                makeEmpty(_root);
             }
 
-            void deleteNode(iterator position) {
-                deleteNode(_root, (*position).first);
+            bool deleteNode(iterator position) {
+                bool ret = deleteNode(_root, (*position).first);
+                if (ret) {
+//                    setParent(_root);
+                    return true;
+                }
             }
 
-			Node* deleteNode(Node* root, key_type key) {
-				if (root == NULL)
-					return root;
-				if (Compare()(key, root->data.first)) {
-					root->left = deleteNode(root->left, key);
+            bool deleteNode(const key_type& k) {
+                bool ret = deleteNode(_root, k);
+                if (ret) {
+//                    setParent(_root);
+                    return true;
+                }
+                return false;
+            }
+
+			bool deleteNode(Node*& r, key_type key) {
+				if (r == NULL)
+					return false;
+				if (Compare()(key, r->data.first)) {
+					return deleteNode(r->left, key);
 				}
-				else if (!Compare()(key, root->data.first)) {
-					root->right = deleteNode(root->right, key);
+				else if (Compare()(r->data.first, key)) {
+					return deleteNode(r->right, key);
 				}
-				else {
-					if (root->left == NULL && root->right == NULL)
-						return NULL;
-					else if (root->left == NULL) {
-						Node* temp = root->right;
-//						_alloc.deallocate(root, sizeof(Node));
-                        delete root;
-//						free(root);
-						return temp;
-					}
-					else if (root->right == NULL) {
-						Node* temp = root->left;
-//						_alloc.deallocate(root, sizeof(Node));
-                        delete root;
-//						free(root);
-						return temp;
-					}
-					Node* temp = minValueNode(root->right);
-					root->data = temp->data;
-					root->right = deleteNode(root->right, temp->data.first);
+				else if (r->left != NULL && r->right != NULL) {
+                    r->data = minValueNode(r->right)->data;
+                    deleteNode(r->right, r->data.first);
+                    return true;
+                }
+                else {
+					Node* temp = r;
+                    r = (r->left != NULL) ? r->left : r->right;
+                    if (r)
+                        r->parent = temp->parent;
+                    delete temp;
+                    return true;
 				}
-				return root;
 			}
 
 			const_iterator begin() const {
@@ -308,7 +319,7 @@ namespace ft {
 			}
 
 			const_iterator end() const {
-				return bstIterator(minValueNode(NULL), this);
+				return bstIterator(NULL, this);
 			}
 
 			Node* search(Node* root, key_type key) {
@@ -318,14 +329,14 @@ namespace ft {
 					return search(root->right, key);
 				return search(root->left, key);
 			}
-
-			Node* getNewNode(value_type data) {
-				Node* newNode = _alloc.allocate(sizeof(Node));
-				newNode->data = data;
-				newNode->left = NULL;
-				newNode->right = NULL;
-				return newNode;
-			}
+//
+//			Node* getNewNode(value_type data) {
+//				Node* newNode = _alloc.allocate(sizeof(Node));
+//				newNode->data = data;
+//				newNode->left = NULL;
+//				newNode->right = NULL;
+//				return newNode;
+//			}
 		};
 
 	private:
@@ -413,7 +424,6 @@ namespace ft {
 			iterator temp = _tree.insert(val);
 			if (temp == _tree.end())
 				return temp;
-//				return (ft::make_pair<iterator, bool>(teemp, false));
 			_size++;
 			return (ft::make_pair<iterator, bool>(temp, true));
 		}
@@ -423,7 +433,9 @@ namespace ft {
 		// Operator overloads
 		mapped_type& operator[] (const key_type& k) {
             const value_type test = ft::make_pair(k, T());
-			return insert(test).first->second;
+            pair<iterator, bool> ret = insert(test);
+            if (ret.second)
+                return ret.first->second;
 		}
 
 		void erase(iterator position) {
@@ -432,13 +444,21 @@ namespace ft {
 		}
 
 		size_type erase(const key_type& k) {
-            _tree.deleteNode(*(_tree.getRoot()), k);
-			_size--;
+            if (_tree.deleteNode(k)) {
+			    _size--;
+                return (1);
+            }
+            return (0);
 		}
 
 		void erase(iterator first, iterator last) {
-			for (; first != last; first++) {
-				_tree.deleteNode(first);
+            iterator temp = first;
+            int i = 0;
+            for (; temp != last; temp++) {
+                i++;
+            }
+			for (; i > 0; i--) {
+				_tree.deleteNode(first++);
 				_size--;
 			}
 		}

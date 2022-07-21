@@ -1,17 +1,13 @@
-# include <map>
-# include <iostream>
+#include <list>
+
+#include "../base.hpp"
+#if !defined(USING_STD)
 # include "Map.hpp"
-# include "Pair.hpp"
-# include <vector>
-# include <list>
+#else
+# include <map>
+#endif /* !defined(STD) */
 
-#define TESTED_NAMESPACE ft
-#define T1 char
-#define T2 int
 #define _pair TESTED_NAMESPACE::pair
-typedef _pair<const T1, T2> T3;
-
-
 
 template <typename T>
 std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
@@ -37,10 +33,10 @@ void	printSize(T_MAP const &mp, bool print_content = 1)
     std::cout << "###############################################" << std::endl;
 }
 
-template <typename TT, typename TY>
-void	printReverse(TESTED_NAMESPACE::map<TT, TY> &mp)
+template <typename T1, typename T2>
+void	printReverse(TESTED_NAMESPACE::map<T1, T2> &mp)
 {
-    typename TESTED_NAMESPACE::map<TT, TY>::iterator it = mp.end(), ite = mp.begin();
+    typename TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.end(), ite = mp.begin();
 
     std::cout << "printReverse:" << std::endl;
     while (it != ite) {
@@ -51,40 +47,42 @@ void	printReverse(TESTED_NAMESPACE::map<TT, TY> &mp)
 }
 
 
-template <class T>
-void	is_empty(T const &mp)
+#define T1 int
+#define T2 std::string
+typedef _pair<const T1, T2> T3;
+
+static int iter = 0;
+
+template <typename MAP, typename U>
+void	ft_erase(MAP &mp, U param)
 {
-    std::cout << "is_empty: " << mp.empty() << std::endl;
+    std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+    std::cout << "ret: " << mp.erase(param) << std::endl;
+    printSize(mp);
 }
 
 int		main(void)
 {
     std::list<T3> lst;
-    unsigned int lst_size = 2;
+    unsigned int lst_size = 6;
     for (unsigned int i = 0; i < lst_size; ++i)
-        lst.push_back(T3('a' + i, lst_size - i));
-
-    TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end()), mp2;
-    TESTED_NAMESPACE::map<T1, T2>::iterator it;
-
-    lst.clear();
-    is_empty(mp);
+        lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+    TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
     printSize(mp);
 
-    is_empty(mp2);
-    mp2 = mp;
-    is_empty(mp2);
+    for (int i = 2; i < 4; ++i)
+        ft_erase(mp, i);
 
-    it = mp.begin();
-    for (unsigned long int i = 0; i < mp.size(); ++i)
-        it++->second = i * 7;
+    ft_erase(mp, mp.begin()->first);
+    ft_erase(mp, (--mp.end())->first);
 
+    mp[-1] = "Hello";
+    mp[10] = "Hi there";
+    mp[10] = "Hi there";
     printSize(mp);
-    std::cout << "DELIMITER ---------------" << std::endl;
-    printSize(mp2);
 
-    mp2.clear();
-    is_empty(mp2);
-    printSize(mp2);
+//    ft_erase(mp, 0);
+    ft_erase(mp, 1);
+
     return (0);
 }
