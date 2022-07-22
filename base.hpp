@@ -10,6 +10,7 @@
 # include <iostream>
 # include <string>
 
+
 // --- Class foo
 template <typename T>
 class foo {

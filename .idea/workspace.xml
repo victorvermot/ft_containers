@@ -16,7 +16,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6b38654d-c3c0-4937-80d3-524e44f6fdb6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/base.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/common.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/Map.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Map.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Pair.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Pair.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester/srcs/map/empty.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/srcs/map/empty.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester/srcs/map/erase2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/srcs/map/erase2.cpp" afterDir="false" />
@@ -62,16 +65,20 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/vvermot-/Documents/42_github/ft_containers/inc",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "editing.templates"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/inc/" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ft_containers" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ft_containers" TARGET_NAME="ft_containers" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ft_containers" RUN_TARGET_NAME="ft_containers">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -94,12 +101,25 @@
       <workItem from="1658335894347" duration="6233000" />
       <workItem from="1658390787718" duration="256000" />
       <workItem from="1658392616641" duration="12000" />
-      <workItem from="1658392655348" duration="19648000" />
+      <workItem from="1658392655348" duration="19768000" />
+      <workItem from="1658478802196" duration="4732000" />
+      <workItem from="1658488663042" duration="7650000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -110,11 +130,46 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/inc/Map.hpp</url>
+          <line>284</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>84</line>
-          <option name="timeStamp" value="58" />
+          <line>47</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>49</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>36</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>15</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/inc/Map.hpp</url>
+          <line>405</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/inc/Map.hpp</url>
+          <line>401</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="tmp.first.nodePtr" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -206,7 +206,7 @@ namespace ft {
             bstree& operator=(const bstree& rhs) {
                 if (this != &rhs) {
                     _root = clone(rhs._root);
-//                    setParent(_root);
+                    setParent(_root);
 //                    _root->parent = NULL;
                 }
                 return *this;
@@ -221,22 +221,12 @@ namespace ft {
 
 			const_iterator insert(const value_type& x) {
 				Node* temp = insert(_root, NULL, x);
-//                setParent(_root);
-//                _root->parent = NULL;
+                setParent(_root);
 				if (temp == NULL)
 					return end();
 				else
 				    return const_iterator(temp, this);
 			}
-
-//			const_iterator insert(value_type x) {
-//				Node* temp = insert(&_root, NULL, x);
-//				if (temp == NULL)
-//					return end();
-//				else
-//					return const_iterator(temp, this);
-//			}
-
 
 			Node* minValueNode(Node* node) const {
 				if (node == NULL)
@@ -268,6 +258,7 @@ namespace ft {
 //                    setParent(_root);
                     return true;
                 }
+                return false;
             }
 
             bool deleteNode(const key_type& k) {
@@ -289,7 +280,11 @@ namespace ft {
 					return deleteNode(r->right, key);
 				}
 				else if (r->left != NULL && r->right != NULL) {
-                    r->data = minValueNode(r->right)->data;
+                    Node* test = minValueNode(r->right);
+                    Node* temp = r;
+                    r = new Node(test->data, r->left, r->right->right, r->parent);
+                    delete temp;
+                    setParent(r);
                     deleteNode(r->right, r->data.first);
                     return true;
                 }
@@ -408,8 +403,10 @@ namespace ft {
 			if (temp == _tree.end())
 				return (ft::make_pair<iterator, bool>(temp, false));
 			_size++;
-			return (ft::make_pair<iterator, bool>(temp, true));
+            pair<iterator, bool> t1 = ft::make_pair<iterator, bool>(temp, true);
+			return (t1);
 		}
+
 		template <class InputIterator>
 		void insert (InputIterator first, InputIterator last) {
 			InputIterator it = first;
@@ -422,20 +419,17 @@ namespace ft {
 		iterator insert(iterator position, const value_type& val) {
 			(void)position;
 			iterator temp = _tree.insert(val);
-			if (temp == _tree.end())
-				return temp;
+//			if (temp == _tree.end())
 			_size++;
-			return (ft::make_pair<iterator, bool>(temp, true));
+            return temp;
+//			return (ft::make_pair<iterator, bool>(temp, true));
 		}
 
 		Alloc get_allocator() { return _alloc; }
 
 		// Operator overloads
 		mapped_type& operator[] (const key_type& k) {
-            const value_type test = ft::make_pair(k, T());
-            pair<iterator, bool> ret = insert(test);
-            if (ret.second)
-                return ret.first->second;
+            return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second;
 		}
 
 		void erase(iterator position) {

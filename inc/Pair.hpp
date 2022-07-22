@@ -22,7 +22,7 @@ namespace ft {
             return (pair<const T1, T2>(this->first, this->second));
         }
 
-//		pair(const pair& other) { *this = other; }
+//		pair(const pair& other) : first(other.first) { *this = other ; }
 
 		template<class U, class V>
 		explicit pair(const pair<const U, V>& pr) : first(pr.first), second(pr.second) {}
@@ -50,7 +50,8 @@ namespace ft {
 
 		pair &operator=(const pair &rhs) {
 			if (this != &rhs) {
-//				this->first = rhs.first;
+//				reinterpret_cast<first_type&>(this->first) = reinterpret_cast<first_type&>(rhs.first);
+//				const_cast<first_type>(this->first) = const_cast<first_type>(rhs.first);
 				this->second = rhs.second;
 			}
 			return (*this);
