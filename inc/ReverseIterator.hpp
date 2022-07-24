@@ -65,7 +65,7 @@ public:
 	}
 	reference operator*() const {
 		Iterator tmp = current;
-		return *--tmp;
+		return *(--tmp);
 	}
 	pointer operator->() const {
 		return &(operator*());
