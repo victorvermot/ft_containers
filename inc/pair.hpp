@@ -14,9 +14,11 @@ namespace ft {
 		first_type 	first;
 		second_type second;
 
-		pair() {};
+		pair() : first() {};
 
         pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+
+        pair(const pair& rhs) : first(rhs.first), second(rhs.second){}
 
         template<class U, class V>
         pair(const pair<U,V>& pr) : first(pr.first), second(pr.second) {}

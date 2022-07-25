@@ -2,7 +2,7 @@
 # define ITERATORTRAITS_H
 
 #include <cstddef>
-#include "RaIterator.hpp"
+#include "random_access_iterator.hpp"
 
 namespace ft {
 	template <class Iterator>

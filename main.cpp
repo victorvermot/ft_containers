@@ -1,46 +1,42 @@
 #include "common.hpp"
 #include <list>
 
-#define T1 char
-#define T2 int
+#define T1 int
+#define T2 std::string
 typedef _pair<const T1, T2> T3;
 
-int main (void)
+static int iter = 0;
+
+template <typename MAP, typename U>
+void	ft_erase(MAP &mp, U param)
+{
+    std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+    std::cout << "ret: " << mp.erase(param) << std::endl;
+    printSize(mp);
+}
+
+int		main(void)
 {
     std::list<T3> lst;
-
-    unsigned int lst_size = 7;
+    unsigned int lst_size = 6;
     for (unsigned int i = 0; i < lst_size; ++i)
-        lst.push_back(T3('a' + i, lst_size - i));
-    TESTED_NAMESPACE::map<T1, T2> foo(lst.begin(), lst.end());
+        lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+    TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+    printSize(mp);
 
-    lst.clear(); lst_size = 4;
-    for (unsigned int i = 0; i < lst_size; ++i)
-        lst.push_back(T3('z' - i, i * 5));
-    TESTED_NAMESPACE::map<T1, T2> bar(lst.begin(), lst.end());
+    for (int i = 2; i < 4; ++i)
+        ft_erase(mp, i);
 
-    TESTED_NAMESPACE::map<T1, T2>::const_iterator it_foo = foo.begin();
-    TESTED_NAMESPACE::map<T1, T2>::const_iterator it_bar = bar.begin();
+    ft_erase(mp, mp.begin()->first);
+    ft_erase(mp, (--mp.end())->first);
 
-    std::cout << "BEFORE SWAP" << std::endl;
+    mp[-1] = "Hello";
+    mp[10] = "Hi there";
+//	mp[10] = "Hi there";
+    printSize(mp);
 
-    std::cout << "foo contains:" << std::endl;
-    printSize(foo);
-    std::cout << "bar contains:" << std::endl;
-    printSize(bar);
-
-    foo.swap(bar);
-
-    std::cout << "AFTER SWAP" << std::endl;
-
-    std::cout << "foo contains:" << std::endl;
-    printSize(foo);
-    std::cout << "bar contains:" << std::endl;
-    printSize(bar);
-
-    std::cout << "Iterator validity:" << std::endl;
-    std::cout << (it_foo == bar.begin()) << std::endl;
-    std::cout << (it_bar == foo.begin()) << std::endl;
+    ft_erase(mp, 0);
+    ft_erase(mp, 1);
 
     return (0);
 }
