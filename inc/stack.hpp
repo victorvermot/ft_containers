@@ -1,7 +1,7 @@
 #ifndef FT_CONTAINERS_STACK_HPP
 # define FT_CONTAINERS_STACK_HPP
 
-# include "Vector.hpp"
+# include "vector.hpp"
 
 namespace ft {
 
@@ -15,19 +15,13 @@ namespace ft {
 		typedef size_t 		size_type;
 
 	private:
+
 		container_type _ctnr;
 
 	public:
-		explicit stack (const container_type& ctnr = container_type()) {
-//			_ctnr.push_back(21);
-//			_ctnr.push_back(42);
-//			_ctnr.push_back(1337);
-//			_ctnr.push_back(19);
-//			_ctnr.push_back(0);
-//			_ctnr.push_back(183792);
-			_ctnr = ctnr;
+		explicit stack(const container_type& ctnr = container_type()) {
+            this->_ctnr = ctnr;
 		}
-
 		bool empty() const {
 			return _ctnr.empty();
 		}
@@ -67,6 +61,7 @@ namespace ft {
 		}
 
 		~stack() {};
+
 	};
 }
 

@@ -27,7 +27,6 @@ class foo {
 		foo &operator=(foo const &src) {
 			if (this->_verbose || src._verbose)
 				std::cout << "foo::operator=(foo) CALLED" << std::endl;
-			std::cout << "GIGA CHAD DEBUG:" << std::endl;
 			this->value = src.value;
 			return *this;
 		};

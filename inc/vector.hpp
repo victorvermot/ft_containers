@@ -1,15 +1,17 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# include "ReverseIterator.hpp"
-# include "RaIterator.hpp"
+# include "reverse_iterator.hpp"
+# include "random_access_iterator.hpp"
 # include "enable_if.hpp"
 # include "is_integral.hpp"
 # include <iostream>
 # include <memory>
 # include <stdexcept>
 # include "lexicographical_compare.hpp"
-# include "swap.hpp"
+//# include "swap.hpp"
+# include <algorithm>
+# include <cstring>
 
 namespace ft {
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -24,8 +26,8 @@ namespace ft {
 		typedef	size_t		size_type;
 		typedef ft::random_access_iterator<value_type> 			iterator;
 		typedef ft::random_access_iterator<const value_type>	const_iterator;
-		typedef reverse_iterator<const_iterator> 				const_reverse_iterator;
-		typedef reverse_iterator<iterator> 						reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> 			const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator> 					reverse_iterator;
 
 	private:
 		// private members
@@ -59,27 +61,27 @@ namespace ft {
 			_vector = _alloc.allocate(_capacity);
 			std::uninitialized_copy(first, last, _vector);
 		}
-		vector(const vector& other) {
+		vector(const vector& other) : _size(0), _capacity(0){
 			*this = other;
 		}
-		~vector<T, Alloc>() {
+		~vector() {
 			for (size_type i = 0; i < _size; i++) {
 				_alloc.destroy(_vector + i);
 			}
-//			_alloc.deallocate(_vector, _capacity);
+			_alloc.deallocate(_vector, _capacity);
 		}
 
 		// Operators Overload
 		vector& operator=(const vector& rhs) {
 			if (this != &rhs) {
-				_alloc = rhs._alloc;
-				_size = rhs._size;
-				_capacity = rhs._capacity;
-				_vector = _alloc.allocate(_capacity);
-				for (size_type i = 0; i < _size; i++) {
-					_vector[i] = rhs._vector[i];
-				}
-				std::uninitialized_copy(rhs.begin(), rhs.end(), _vector);
+                if (_capacity)
+                    _alloc.deallocate(_vector, _size);
+                _vector = _alloc.allocate(rhs._capacity);
+                for (size_t i = 0; i < rhs._size; i++) {
+                    _vector[i] = rhs._vector[i];
+                }
+                _size = rhs._size;
+                _capacity = rhs._capacity;
 			}
 			return (*this);
 		}
@@ -112,7 +114,7 @@ namespace ft {
 			size_type old_capacity = _capacity;
 			if (n > this->max_size())
 				throw std::length_error("The size provided is too big");
-			if (n > _capacity) {
+			if (n >= _capacity) {
 				value_type *temp = _alloc.allocate(n);
 				std::uninitialized_copy(_vector, _vector + _size, temp);
 				for (size_type i = 0; i < _size; i++) {
@@ -191,9 +193,10 @@ namespace ft {
 		}
 
 		void swap(vector& x) {
-			ft::swap(this->_size, x._size);
-			ft::swap(this->_capacity, x._capacity);
-			ft::swap(this->_vector, x._vector);
+			std::swap(this->_size, x._size);
+			std::swap(this->_capacity, x._capacity);
+			std::swap(this->_vector, x._vector);
+            std::swap(this->_alloc, x._alloc);
 		}
 
 		void pop_back() {
@@ -249,7 +252,8 @@ namespace ft {
 			std::uninitialized_copy(this->begin(), position, temp);
 			std::uninitialized_copy(first, last, temp + (position - this->begin()));
 			std::uninitialized_copy(position, this->end(), temp + (position - this->begin() + diff));
-			_alloc.deallocate(_vector, old_capacity);
+            if (old_capacity)
+			    _alloc.deallocate(_vector, old_capacity);
 			_vector = temp;
 			_size += diff;
 		}
@@ -306,9 +310,9 @@ namespace ft {
 			return !(rhs < lhs);
 		}
 		friend void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
-			ft::swap(x._size, y._size);
-			ft::swap(x._capacity, y._capacity);
-			ft::swap(x._vector, y._vector);
+			std::swap(x._size, y._size);
+			std::swap(x._capacity, y._capacity);
+			std::swap(x._vector, y._vector);
 		}
 
 		// ALlocators
