@@ -15,21 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b38654d-c3c0-4937-80d3-524e44f6fdb6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inc/bstree.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/base.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/common.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Iterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/iterator.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/IteratorTraits.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/iterator_traits.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Map.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/map.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Pair.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/pair.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/RaIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/random_access_iterator.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/ReverseIterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/reverse_iterator.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/vector.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/bidirectional_iterator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/bidirectional_iterator.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/rbtree.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/stack.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/stack.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/swap.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers" beforeDir="false" afterPath="$PROJECT_DIR$/containers" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester/mine" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/mine" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester/srcs/map/common.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/srcs/map/common.hpp" afterDir="false" />
@@ -37,6 +24,9 @@
       <change beforePath="$PROJECT_DIR$/inc/tester/srcs/vector/common.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/srcs/vector/common.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/tester/std" beforeDir="false" afterPath="$PROJECT_DIR$/inc/tester/std" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +116,7 @@
       <workItem from="1658661790418" duration="16304000" />
       <workItem from="1658681128451" duration="15000" />
       <workItem from="1658735052539" duration="13090000" />
-      <workItem from="1658750227143" duration="9459000" />
+      <workItem from="1658750227143" duration="10575000" />
     </task>
     <servers />
   </component>
@@ -171,11 +161,6 @@
           <url>file://$PROJECT_DIR$/inc/tester/srcs/map/erase2.cpp</url>
           <line>35</line>
           <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>38</line>
-          <option name="timeStamp" value="108" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
